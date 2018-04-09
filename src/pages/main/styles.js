@@ -6,6 +6,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundApp,
   },
+
+  columnContainer: {
+    marginHorizontal: metrics.basePadding,
+    justifyContent: 'space-between',
+  },
 });
 
 export default styles;
