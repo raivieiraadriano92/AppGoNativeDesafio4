@@ -1,37 +1,40 @@
 import { StyleSheet } from 'react-native';
-
 import { colors, general, metrics } from 'styles';
 
 const styles = StyleSheet.create({
   container: {
-    ...general.box,
     flex: 1,
+    backgroundColor: colors.backgroundApp,
+  },
+
+  containerProduct: {
+    ...general.box,
     alignItems: 'center',
-    marginVertical: 5,
-    maxWidth: (metrics.screenWidth - 50) / 2,
+    width: metrics.screenWidth - 40,
+    margin: 20,
   },
 
   image: {
     width: '100%',
-    height: 180,
+    height: 285,
   },
 
   name: {
     color: colors.dark,
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 18,
     marginTop: metrics.baseMargin,
   },
 
   brand: {
     color: colors.grey,
-    fontSize: 11,
+    fontSize: 12,
   },
 
   price: {
     color: colors.green,
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 24,
   },
 });
 

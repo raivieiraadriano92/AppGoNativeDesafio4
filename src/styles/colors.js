@@ -7,7 +7,7 @@ export default {
   darker: '#333',
   black: '#000',
 
-  succegreenss: '#37BEA9',
+  green: '#37BEA9',
   pink: '#FF9696',
   backgroundApp: '#F5F5F5',
   grey: '#C0C0C0',

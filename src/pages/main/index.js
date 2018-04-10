@@ -43,7 +43,7 @@ const Main = () => (
     <FlatList
       data={products}
       keyExtractor={item => String(item.id)}
-      renderItem={item => <ItemProduct product={item} />}
+      renderItem={item => <ItemProduct product={item.item} />}
       // onRefresh={this.loadOrganizations}
       // refreshing={this.state.refreshing}
       // ListFooterComponent={<View style={styles.listFooter} />}
