@@ -9,18 +9,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
     marginVertical: 5,
+    flexDirection: 'row',
+    padding: 20,
   },
 
   image: {
-    width: '100%',
-    height: 180,
+    width: 60,
+    height: 100,
+  },
+
+  info: {
+    flex: 1,
+    marginHorizontal: metrics.baseMargin,
   },
 
   name: {
     color: colors.dark,
     fontWeight: 'bold',
     fontSize: 14,
-    marginTop: metrics.baseMargin,
   },
 
   brand: {
@@ -32,6 +38,25 @@ const styles = StyleSheet.create({
     color: colors.green,
     fontWeight: 'bold',
     fontSize: 14,
+  },
+
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  input: {
+    borderWidth: 1,
+    borderColor: colors.lighter,
+    borderRadius: metrics.baseRadius,
+    height: 30,
+    width: 50,
+    padding: 0,
+    paddingHorizontal: 10,
+    color: colors.grey,
+    marginRight: metrics.baseMargin,
+    fontSize: 11,
   },
 });
 

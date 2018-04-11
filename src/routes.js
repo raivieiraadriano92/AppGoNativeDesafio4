@@ -5,9 +5,9 @@ import Main from 'pages/main';
 import ProductDetail from 'pages/productDetail';
 
 const Routes = StackNavigator({
-  Cart: { screen: Cart },
   Main: { screen: Main },
   ProductDetail: { screen: ProductDetail },
+  Cart: { screen: Cart },
 });
 
 export default Routes;

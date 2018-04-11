@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FlatList, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
 import Header from 'components/Header';
 
@@ -61,6 +61,11 @@ const Cart = () => (
       ListHeaderComponent={<View style={styles.listHeaderFooter} />}
       renderItem={item => <ItemCart product={item.item} />}
     />
+
+    <View style={styles.subtotal}>
+      <Text style={styles.subtotalTitle}>Subtotal</Text>
+      <Text style={styles.subtotalValue}>R$ 200,00</Text>
+    </View>
   </View>
 );
 
