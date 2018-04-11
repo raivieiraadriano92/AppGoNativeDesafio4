@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
+import { PropTypes } from 'prop-types';
 
 import Header from 'components/Header';
 
@@ -14,36 +16,46 @@ const product = {
   price: 49.99,
 };
 
-const ProductDetail = () => (
-  <ScrollView>
-    <View style={styles.containerProduct}>
-      <Image style={styles.image} source={{ uri: product.image }} />
-
-      <View style={styles.info}>
-        <View style={styles.containerText}>
-          <Text style={styles.name}>{product.name}asd</Text>
-          <Text style={styles.brand}>{product.brand}</Text>
-        </View>
-
-        <View style={styles.containerPrice}>
-          <Text style={styles.price}>R$ {product.price}</Text>
-        </View>
-      </View>
-
-      <TouchableOpacity
-        onPress={() => {}}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Adicionar ao carrinho</Text>
-      </TouchableOpacity>
-    </View>
-  </ScrollView>
-);
-
-ProductDetail.navigationOptions = ({ navigation }) => {
-  return {
+export default class ProductDetail extends Component {
+  static navigationOptions = ({ navigation }) => ({
     header: <Header navigation={navigation} showBackButton title="Detalhe do produto" />,
-  };
-};
+  });
 
-export default ProductDetail;
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+  };
+
+  addToCart = () => {
+    this.props.navigation.navigate('Cart');
+  };
+
+  render() {
+    return (
+      <ScrollView style={styles.container}>
+        <View style={styles.containerProduct}>
+          <Image style={styles.image} source={{ uri: product.image }} />
+
+          <View style={styles.info}>
+            <View style={styles.containerText}>
+              <Text style={styles.name}>{product.name}asd</Text>
+              <Text style={styles.brand}>{product.brand}</Text>
+            </View>
+
+            <View style={styles.containerPrice}>
+              <Text style={styles.price}>R$ {product.price}</Text>
+            </View>
+          </View>
+
+          <TouchableOpacity
+            onPress={this.addToCart}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Adicionar ao carrinho</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    );
+  }
+}

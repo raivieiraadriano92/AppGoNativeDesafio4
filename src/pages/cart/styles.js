@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { colors } from 'styles';
 
 const styles = StyleSheet.create({
@@ -8,7 +9,7 @@ const styles = StyleSheet.create({
   },
 
   columnContainer: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     justifyContent: 'space-between',
   },
 

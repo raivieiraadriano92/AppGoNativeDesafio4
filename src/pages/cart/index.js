@@ -2,12 +2,10 @@ import React from 'react';
 
 import { FlatList, View } from 'react-native';
 
-import PropTypes from 'prop-types';
-
 import Header from 'components/Header';
 
 import styles from './styles';
-import ItemProduct from './components/ItemProduct';
+import ItemCart from './components/ItemCart';
 
 const products = [
   {
@@ -54,31 +52,20 @@ const products = [
   },
 ];
 
-const Main = ({ navigation }) => (
+const Cart = () => (
   <View style={styles.container}>
     <FlatList
-      columnWrapperStyle={styles.columnContainer}
       data={products}
       keyExtractor={item => String(item.id)}
       ListFooterComponent={<View style={styles.listHeaderFooter} />}
       ListHeaderComponent={<View style={styles.listHeaderFooter} />}
-      numColumns={2}
-      renderItem={item => <ItemProduct onPress={() => { navigation.navigate('ProductDetail'); }} product={item.item} />}
-      // onRefresh={this.loadOrganizations}
-      // refreshing={this.state.refreshing}
-      // ListFooterComponent={<View style={styles.listFooter} />}
+      renderItem={item => <ItemCart product={item.item} />}
     />
   </View>
 );
 
-Main.navigationOptions = {
-  header: <Header title="GoCommerce" />,
-};
+Cart.navigationOptions = ({ navigation }) => ({
+  header: <Header navigation={navigation} showBackButton title="Carrinho" />,
+});
 
-Main.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
-export default Main;
+export default Cart;
