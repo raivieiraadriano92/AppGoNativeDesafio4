@@ -2,6 +2,8 @@ import React from 'react';
 
 import { FlatList, View } from 'react-native';
 
+import PropTypes from 'prop-types';
+
 import Header from 'components/Header';
 
 import styles from './styles';
@@ -38,12 +40,12 @@ const products = [
   },
 ];
 
-const Main = () => (
+const Main = ({ navigation }) => (
   <View style={styles.container}>
     <FlatList
       data={products}
       keyExtractor={item => String(item.id)}
-      renderItem={item => <ItemProduct product={item.item} />}
+      renderItem={item => <ItemProduct onPress={() => { navigation.navigate('ProductDetail'); }} product={item.item} />}
       // onRefresh={this.loadOrganizations}
       // refreshing={this.state.refreshing}
       // ListFooterComponent={<View style={styles.listFooter} />}
@@ -55,6 +57,12 @@ const Main = () => (
 
 Main.navigationOptions = {
   header: <Header title="GoCommerce" />,
+};
+
+Main.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Main;

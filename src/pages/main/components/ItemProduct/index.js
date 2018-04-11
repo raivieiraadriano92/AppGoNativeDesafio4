@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 
 import styles from './styles';
 
-const ItemProduct = ({ product }) => (
+const ItemProduct = ({ product, onPress }) => (
   <TouchableOpacity
-    onPress={() => {}}
+    onPress={onPress}
     style={styles.container}
   >
     <Image style={styles.image} source={{ uri: product.image }} />
@@ -27,6 +27,7 @@ ItemProduct.propTypes = {
     brand: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 export default ItemProduct;

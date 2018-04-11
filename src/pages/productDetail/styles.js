@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: metrics.screenWidth - 40,
     margin: 20,
+    padding: 20,
   },
 
   image: {
@@ -19,11 +20,20 @@ const styles = StyleSheet.create({
     height: 285,
   },
 
+  info: {
+    width: '100%',
+    flexDirection: 'row',
+    marginTop: metrics.baseMargin,
+  },
+
+  containerText: {
+    flex: 1,
+  },
+
   name: {
     color: colors.dark,
     fontWeight: 'bold',
     fontSize: 18,
-    marginTop: metrics.baseMargin,
   },
 
   brand: {
@@ -31,10 +41,29 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 
+  containerPrice: {
+  },
+
   price: {
     color: colors.green,
     fontWeight: 'bold',
     fontSize: 24,
+    paddingLeft: metrics.basePadding,
+  },
+
+  button: {
+    backgroundColor: colors.green,
+    height: 45,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: metrics.baseRadius,
+    marginTop: metrics.baseMargin,
+  },
+
+  buttonText: {
+    color: colors.white,
+    fontWeight: 'bold',
   },
 });
 

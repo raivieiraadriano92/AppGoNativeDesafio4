@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Image, ScrollView, Text, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import Header from 'components/Header';
 
@@ -18,17 +18,32 @@ const ProductDetail = () => (
   <ScrollView>
     <View style={styles.containerProduct}>
       <Image style={styles.image} source={{ uri: product.image }} />
-      <View>
-        <Text style={styles.name}>{product.name}asd</Text>
-        <Text style={styles.brand}>{product.brand}</Text>
-        <Text style={styles.price}>R$ {product.price}</Text>
+
+      <View style={styles.info}>
+        <View style={styles.containerText}>
+          <Text style={styles.name}>{product.name}asd</Text>
+          <Text style={styles.brand}>{product.brand}</Text>
+        </View>
+
+        <View style={styles.containerPrice}>
+          <Text style={styles.price}>R$ {product.price}</Text>
+        </View>
       </View>
+
+      <TouchableOpacity
+        onPress={() => {}}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Adicionar ao carrinho</Text>
+      </TouchableOpacity>
     </View>
   </ScrollView>
 );
 
-ProductDetail.navigationOptions = {
-  header: <Header showBackButton title="Detalhe do produto" />,
+ProductDetail.navigationOptions = ({ navigation }) => {
+  return {
+    header: <Header navigation={navigation} showBackButton title="Detalhe do produto" />,
+  };
 };
 
 export default ProductDetail;

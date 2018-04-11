@@ -4,8 +4,8 @@ import ProductDetail from 'pages/productDetail';
 import Main from 'pages/main';
 
 const Routes = StackNavigator({
-  ProductDetail: { screen: ProductDetail },
   Main: { screen: Main },
+  ProductDetail: { screen: ProductDetail },
 });
 
 export default Routes;
