@@ -1,10 +1,15 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { FlatList, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { Creators as CategoriesActions } from 'store/ducks/categories';
 
 import Header from 'components/Header';
 
@@ -56,75 +61,67 @@ const products = [
   },
 ];
 
-const categories = [
-  {
-    id: 1,
-    title: 'Camisetas',
-  },
-  {
-    id: 2,
-    title: 'Camisas',
-  },
-  {
-    id: 3,
-    title: 'Calças',
-  },
-  {
-    id: 4,
-    title: 'Blusas',
-  },
-  {
-    id: 5,
-    title: 'Bonés',
-  },
-  {
-    id: 6,
-    title: 'Casacos',
-  },
-];
+class Main extends Component {
+  static navigationOptions = {
+    header: <Header title="GoCommerce" />,
+    tabBarIcon: ({ tintColor }) => <Icon name="home" size={20} color={tintColor} />,
+  };
 
-const Main = ({ navigation }) => (
-  <Fragment>
-    <View style={styles.categories}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        { categories.map(category => (
-          <TouchableOpacity
-            key={category.id}
-            onPress={() => {}}
-            style={[styles.buttonCategory, (category.id === 2 ? styles.buttonCategoryActive : {})]}
-          >
-            <Text style={styles.buttonCategoryText}>{category.title}</Text>
-          </TouchableOpacity>
-        )) }
-      </ScrollView>
-    </View>
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+    categories: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+      })).isRequired,
+    }).isRequired,
+    getCategoriesRequest: PropTypes.func.isRequired,
+  };
 
-    <View style={styles.container}>
-      <FlatList
-        columnWrapperStyle={styles.columnContainer}
-        data={products}
-        keyExtractor={item => String(item.id)}
-        ListFooterComponent={<View style={styles.listHeaderFooter} />}
-        ListHeaderComponent={<View style={styles.listHeaderFooter} />}
-        numColumns={2}
-        renderItem={item => <ItemProduct onPress={() => { navigation.navigate('ProductDetail'); }} product={item.item} />}
-        // onRefresh={this.loadOrganizations}
-        // refreshing={this.state.refreshing}
-        // ListFooterComponent={<View style={styles.listFooter} />}
-      />
-    </View>
-  </Fragment>
-);
+  componentDidMount() {
+    this.props.getCategoriesRequest();
+  }
 
-Main.navigationOptions = {
-  header: <Header title="GoCommerce" />,
-  tabBarIcon: ({ tintColor }) => <Icon name="home" size={20} color={tintColor} />,
-};
+  render() {
+    return (
+      <Fragment>
+        <View style={styles.categories}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {this.props.categories.data.map(category => (
+              <TouchableOpacity
+                key={category.id}
+                onPress={() => { }}
+                style={[styles.buttonCategory, (category.id === 2 ? styles.buttonCategoryActive : {})]}
+              >
+                <Text style={styles.buttonCategoryText}>{category.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
 
-Main.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
+        <View style={styles.container}>
+          <FlatList
+            columnWrapperStyle={styles.columnContainer}
+            data={products}
+            keyExtractor={item => String(item.id)}
+            ListFooterComponent={<View style={styles.listHeaderFooter} />}
+            ListHeaderComponent={<View style={styles.listHeaderFooter} />}
+            numColumns={2}
+            renderItem={item => <ItemProduct onPress={() => { this.props.navigation.navigate('ProductDetail'); }} product={item.item} />}
+          />
+        </View>
+      </Fragment>
+    );
+  }
+}
 
-export default Main;
+const mapStateToProps = state => ({
+  categories: state.categories,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CategoriesActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
