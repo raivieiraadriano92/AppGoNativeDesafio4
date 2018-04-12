@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 
   input: {
     borderWidth: 1,
-    borderColor: colors.lighter,
+    borderColor: colors.grey,
     borderRadius: metrics.baseRadius,
     height: 30,
     width: 50,
@@ -57,6 +57,17 @@ const styles = StyleSheet.create({
     color: colors.grey,
     marginRight: metrics.baseMargin,
     fontSize: 11,
+  },
+
+  removeButton: {
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  backIcon: {
+    color: colors.grey,
   },
 });
 

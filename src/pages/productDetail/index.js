@@ -4,6 +4,8 @@ import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import { PropTypes } from 'prop-types';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import Header from 'components/Header';
 
 import styles from './styles';
@@ -19,6 +21,7 @@ const product = {
 export default class ProductDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: <Header navigation={navigation} showBackButton title="Detalhe do produto" />,
+    tabBarIcon: ({ tintColor }) => <Icon name="home" size={20} color={tintColor} />,
   });
 
   static propTypes = {

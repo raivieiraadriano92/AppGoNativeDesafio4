@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-import { FlatList, View } from 'react-native';
+import { FlatList, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import PropTypes from 'prop-types';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Header from 'components/Header';
 
@@ -54,25 +56,69 @@ const products = [
   },
 ];
 
+const categories = [
+  {
+    id: 1,
+    title: 'Camisetas',
+  },
+  {
+    id: 2,
+    title: 'Camisas',
+  },
+  {
+    id: 3,
+    title: 'Calças',
+  },
+  {
+    id: 4,
+    title: 'Blusas',
+  },
+  {
+    id: 5,
+    title: 'Bonés',
+  },
+  {
+    id: 6,
+    title: 'Casacos',
+  },
+];
+
 const Main = ({ navigation }) => (
-  <View style={styles.container}>
-    <FlatList
-      columnWrapperStyle={styles.columnContainer}
-      data={products}
-      keyExtractor={item => String(item.id)}
-      ListFooterComponent={<View style={styles.listHeaderFooter} />}
-      ListHeaderComponent={<View style={styles.listHeaderFooter} />}
-      numColumns={2}
-      renderItem={item => <ItemProduct onPress={() => { navigation.navigate('ProductDetail'); }} product={item.item} />}
-      // onRefresh={this.loadOrganizations}
-      // refreshing={this.state.refreshing}
-      // ListFooterComponent={<View style={styles.listFooter} />}
-    />
-  </View>
+  <Fragment>
+    <View style={styles.categories}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        { categories.map(category => (
+          <TouchableOpacity
+            key={category.id}
+            onPress={() => {}}
+            style={[styles.buttonCategory, (category.id === 2 ? styles.buttonCategoryActive : {})]}
+          >
+            <Text style={styles.buttonCategoryText}>{category.title}</Text>
+          </TouchableOpacity>
+        )) }
+      </ScrollView>
+    </View>
+
+    <View style={styles.container}>
+      <FlatList
+        columnWrapperStyle={styles.columnContainer}
+        data={products}
+        keyExtractor={item => String(item.id)}
+        ListFooterComponent={<View style={styles.listHeaderFooter} />}
+        ListHeaderComponent={<View style={styles.listHeaderFooter} />}
+        numColumns={2}
+        renderItem={item => <ItemProduct onPress={() => { navigation.navigate('ProductDetail'); }} product={item.item} />}
+        // onRefresh={this.loadOrganizations}
+        // refreshing={this.state.refreshing}
+        // ListFooterComponent={<View style={styles.listFooter} />}
+      />
+    </View>
+  </Fragment>
 );
 
 Main.navigationOptions = {
   header: <Header title="GoCommerce" />,
+  tabBarIcon: ({ tintColor }) => <Icon name="home" size={20} color={tintColor} />,
 };
 
 Main.propTypes = {

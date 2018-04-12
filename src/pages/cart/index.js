@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { FlatList, Text, View } from 'react-native';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Header from 'components/Header';
 
@@ -53,6 +55,8 @@ const products = [
 ];
 
 const Cart = () => (
+  <Fragment>
+  <Header title="Carrinho" />
   <View style={styles.container}>
     <FlatList
       data={products}
@@ -67,10 +71,11 @@ const Cart = () => (
       <Text style={styles.subtotalValue}>R$ 200,00</Text>
     </View>
   </View>
+  </Fragment>
 );
 
-Cart.navigationOptions = ({ navigation }) => ({
-  header: <Header navigation={navigation} showBackButton title="Carrinho" />,
+Cart.navigationOptions = () => ({
+  tabBarIcon: ({ tintColor }) => <Icon name="shopping-cart" size={20} color={tintColor} />,
 });
 
 export default Cart;
