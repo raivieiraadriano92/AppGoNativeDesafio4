@@ -10,6 +10,6 @@ export function* getCategories() {
     yield put(CategoriesActions.getCategoriesSuccess(data));
     yield put(CategoriesActions.selectCategory(data[0].id));
   } catch (err) {
-    yield put(CategoriesActions.getCategoriesFailure('Erro ao buscar álbuns da API'));
+    yield put(CategoriesActions.getCategoriesFailure('Erro ao buscar categorias da API'));
   }
 }
