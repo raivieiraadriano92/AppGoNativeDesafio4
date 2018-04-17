@@ -36,6 +36,7 @@ class ProductDetail extends Component {
 
   addToCart = (product) => {
     this.props.addProduct(product);
+    this.props.navigation.goBack();
     this.props.navigation.navigate('Cart');
   };
 

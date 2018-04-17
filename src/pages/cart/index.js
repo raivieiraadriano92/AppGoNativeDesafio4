@@ -32,7 +32,7 @@ class Cart extends Component {
     }
 
     return this.props.cart.data
-      .map(product => product.price)
+      .map(product => product.price * product.amount)
       .reduce((total, next) => total + next);
   }
 

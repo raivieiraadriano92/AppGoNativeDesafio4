@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
 
-const ItemCart = ({ product, removeProduct }) => (
+const ItemCart = ({ product, removeProduct, changeAmountProduct }) => (
   <View style={styles.container}>
     <Image style={styles.image} source={{ uri: product.image }} />
 
@@ -27,10 +27,10 @@ const ItemCart = ({ product, removeProduct }) => (
       <TextInput
         autoCorrect={false}
         autoCapitalize="none"
-        onChangeText={() => {}}
-        onSubmitEditing={() => { }}
+        onChangeText={(amount) => { changeAmountProduct(product.id, amount); }}
         style={styles.input}
         underlineColorAndroid="rgba(0, 0, 0, 0)"
+        value={String(product.amount)}
       />
 
       <TouchableOpacity
@@ -49,8 +49,10 @@ ItemCart.propTypes = {
     name: PropTypes.string.isRequired,
     brand: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    amount: PropTypes.number.isRequired,
   }).isRequired,
   removeProduct: PropTypes.func.isRequired,
+  changeAmountProduct: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch =>
