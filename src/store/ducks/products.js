@@ -5,13 +5,13 @@ export const Types = {
   GET_SUCCESS: 'products/GET_SUCCESS',
   GET_FAILURE: 'products/GET_FAILURE',
   SELECT: 'products/SELECT',
-  productSelected: null,
 };
 
 const initialState = Immutable({
   data: [],
   loading: false,
   error: null,
+  productSelected: null,
 });
 
 export default function products(state = initialState, action) {

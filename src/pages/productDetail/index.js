@@ -7,6 +7,9 @@ import { PropTypes } from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { Creators as CartActions } from 'store/ducks/cart';
 
 import Header from 'components/Header';
 
@@ -28,9 +31,11 @@ class ProductDetail extends Component {
       brand: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
     }).isRequired,
+    addProduct: PropTypes.func.isRequired,
   };
 
-  addToCart = () => {
+  addToCart = (product) => {
+    this.props.addProduct(product);
     this.props.navigation.navigate('Cart');
   };
 
@@ -52,7 +57,7 @@ class ProductDetail extends Component {
           </View>
 
           <TouchableOpacity
-            onPress={this.addToCart}
+            onPress={() => { this.addToCart(this.props.product); }}
             style={styles.button}
           >
             <Text style={styles.buttonText}>Adicionar ao carrinho</Text>
@@ -66,4 +71,9 @@ class ProductDetail extends Component {
 const mapStateToProps = state => ({
   product: state.products.productSelected,
 });
-export default connect(mapStateToProps)(ProductDetail);
+
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
