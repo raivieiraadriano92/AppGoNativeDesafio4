@@ -7,6 +7,9 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { Creators as ProductsActions } from 'store/ducks/products';
 
 import Header from 'components/Header';
 
@@ -30,7 +33,14 @@ class Main extends Component {
       })).isRequired,
       loading: PropTypes.bool,
     }).isRequired,
+    selectProduct: PropTypes.func.isRequired,
   };
+
+  selectProduct = (product) => {
+    this.props.selectProduct(product);
+
+    this.props.navigation.navigate('ProductDetail');
+  }
 
   render() {
     return (
@@ -47,7 +57,7 @@ class Main extends Component {
               ListFooterComponent={<View style={styles.listHeaderFooter} />}
               ListHeaderComponent={<View style={styles.listHeaderFooter} />}
               numColumns={2}
-              renderItem={item => <ItemProduct onPress={() => { this.props.navigation.navigate('ProductDetail'); }} product={item.item} />}
+              renderItem={({ item }) => <ItemProduct onPress={() => { this.selectProduct(item); }} product={item} />}
             /> }
         </View>
       </Fragment>
@@ -59,4 +69,7 @@ const mapStateToProps = state => ({
   products: state.products,
 });
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(ProductsActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

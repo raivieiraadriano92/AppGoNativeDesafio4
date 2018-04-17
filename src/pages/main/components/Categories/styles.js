@@ -5,6 +5,8 @@ const styles = StyleSheet.create({
   categories: {
     backgroundColor: colors.pink,
     height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   buttonCategory: {

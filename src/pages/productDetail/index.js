@@ -6,19 +6,13 @@ import { PropTypes } from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import { connect } from 'react-redux';
+
 import Header from 'components/Header';
 
 import styles from './styles';
 
-const product = {
-  id: 1,
-  name: 'Camiseta Hyperas Preta',
-  brand: 'Quiksilver',
-  image: 'https://t-static.dafiti.com.br/czCvp3wBNPfehf7omYZfJacnxPY=/fit-in/427x620/dafitistatic-a.akamaihd.net%2fp%2fquiksilver-camiseta-quiksilver-hyperas-preta-8710-7136243-1-product.jpg',
-  price: 49.99,
-};
-
-export default class ProductDetail extends Component {
+class ProductDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: <Header navigation={navigation} showBackButton title="Detalhe do produto" />,
     tabBarIcon: ({ tintColor }) => <Icon name="home" size={20} color={tintColor} />,
@@ -27,6 +21,12 @@ export default class ProductDetail extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired,
+    }).isRequired,
+    product: PropTypes.shape({
+      image: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      brand: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
     }).isRequired,
   };
 
@@ -38,16 +38,16 @@ export default class ProductDetail extends Component {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.containerProduct}>
-          <Image style={styles.image} source={{ uri: product.image }} />
+          <Image style={styles.image} source={{ uri: this.props.product.image }} />
 
           <View style={styles.info}>
             <View style={styles.containerText}>
-              <Text style={styles.name}>{product.name}asd</Text>
-              <Text style={styles.brand}>{product.brand}</Text>
+              <Text style={styles.name}>{this.props.product.name}asd</Text>
+              <Text style={styles.brand}>{this.props.product.brand}</Text>
             </View>
 
             <View style={styles.containerPrice}>
-              <Text style={styles.price}>R$ {product.price}</Text>
+              <Text style={styles.price}>R$ {this.props.product.price}</Text>
             </View>
           </View>
 
@@ -62,3 +62,8 @@ export default class ProductDetail extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  product: state.products.productSelected,
+});
+export default connect(mapStateToProps)(ProductDetail);

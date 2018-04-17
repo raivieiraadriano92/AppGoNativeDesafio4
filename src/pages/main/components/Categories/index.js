@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -19,6 +19,7 @@ class Categories extends Component {
         title: PropTypes.string,
       })).isRequired,
       categoryIdSelected: PropTypes.number,
+      loading: PropTypes.bool,
     }).isRequired,
     getCategoriesRequest: PropTypes.func.isRequired,
     selectCategory: PropTypes.func.isRequired,
@@ -31,17 +32,23 @@ class Categories extends Component {
   render() {
     return (
       <View style={styles.categories}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {this.props.categories.data.map(category => (
-            <TouchableOpacity
-              key={category.id}
-              onPress={() => { this.props.selectCategory(category.id); }}
-              style={[styles.buttonCategory, (category.id === this.props.categories.categoryIdSelected ? styles.buttonCategoryActive : {})]}
-            >
-              <Text style={styles.buttonCategoryText}>{category.title}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        {this.props.categories.loading
+          ? <ActivityIndicator size={24} />
+          : (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {this.props.categories.data.map(category => (
+                <TouchableOpacity
+                  key={category.id}
+                  onPress={() => { this.props.selectCategory(category.id); }}
+                  style={[styles.buttonCategory, (category.id === this.props.categories.categoryIdSelected ? styles.buttonCategoryActive : {})]}
+                >
+                  <Text style={styles.buttonCategoryText}>{category.title}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          )}
+
+
       </View>
     );
   }

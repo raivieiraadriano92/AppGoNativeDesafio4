@@ -4,6 +4,8 @@ export const Types = {
   GET_REQUEST: 'products/GET_REQUEST',
   GET_SUCCESS: 'products/GET_SUCCESS',
   GET_FAILURE: 'products/GET_FAILURE',
+  SELECT: 'products/SELECT',
+  productSelected: null,
 };
 
 const initialState = Immutable({
@@ -31,6 +33,11 @@ export default function products(state = initialState, action) {
         loading: false,
         error: action.payload.error,
       };
+    case Types.SELECT:
+      return {
+        ...state,
+        productSelected: action.payload.product,
+      };
     default:
       return state;
   }
@@ -47,5 +54,9 @@ export const Creators = {
   getProductsFailure: error => ({
     type: Types.GET_FAILURE,
     payload: { error },
+  }),
+  selectProduct: product => ({
+    type: Types.SELECT,
+    payload: { product },
   }),
 };
