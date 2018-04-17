@@ -20,7 +20,7 @@ const Routes = TabNavigator(
     tabBarPosition: 'bottom',
     tabBarOptions: {
       indicatorStyle: {
-        opacity: 0
+        opacity: 0,
       },
       showIcon: true,
       showLabel: false,

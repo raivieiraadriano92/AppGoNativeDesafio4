@@ -2,11 +2,18 @@ import React from 'react';
 
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { PropTypes } from 'prop-types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { Creators as CartActions } from 'store/ducks/cart';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
 
-const ItemCart = ({ product }) => (
+const ItemCart = ({ product, removeProduct }) => (
   <View style={styles.container}>
     <Image style={styles.image} source={{ uri: product.image }} />
 
@@ -27,7 +34,7 @@ const ItemCart = ({ product }) => (
       />
 
       <TouchableOpacity
-        onPress={() => {}}
+        onPress={() => { removeProduct(product.id); }}
         style={styles.removeButton}
       >
         <Icon name="times" size={18} style={styles.backIcon} />
@@ -36,4 +43,17 @@ const ItemCart = ({ product }) => (
   </View>
 );
 
-export default ItemCart;
+ItemCart.propTypes = {
+  product: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    brand: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  removeProduct: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(ItemCart);

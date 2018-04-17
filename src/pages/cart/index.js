@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { FlatList, Text, View } from 'react-native';
 
@@ -13,38 +13,54 @@ import Header from 'components/Header';
 import styles from './styles';
 import ItemCart from './components/ItemCart';
 
-const Cart = ({ products }) => (
-  <Fragment>
-    <Header title="Carrinho" />
-    <View style={styles.container}>
-      <FlatList
-        data={products}
-        keyExtractor={item => String(item.id)}
-        ListFooterComponent={<View style={styles.listHeaderFooter} />}
-        ListHeaderComponent={<View style={styles.listHeaderFooter} />}
-        renderItem={item => <ItemCart product={item.item} />}
-      />
+class Cart extends Component {
+  static navigationOptions = () => ({
+    tabBarIcon: ({ tintColor }) => <Icon name="shopping-cart" size={20} color={tintColor} />,
+  });
 
-      <View style={styles.subtotal}>
-        <Text style={styles.subtotalTitle}>Subtotal</Text>
-        <Text style={styles.subtotalValue}>R$ 200,00</Text>
-      </View>
-    </View>
-  </Fragment>
-);
+  static propTypes = {
+    cart: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+      })).isRequired,
+    }).isRequired,
+  };
 
-Cart.navigationOptions = () => ({
-  tabBarIcon: ({ tintColor }) => <Icon name="shopping-cart" size={20} color={tintColor} />,
-});
+  totalPrice = () => {
+    if (!this.props.cart.data.length) {
+      return 0;
+    }
 
-Cart.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  })).isRequired,
-};
+    return this.props.cart.data
+      .map(product => product.price)
+      .reduce((total, next) => total + next);
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Header title="Carrinho" />
+        <View style={styles.container}>
+          <FlatList
+            data={this.props.cart.data}
+            keyExtractor={item => String(item.id)}
+            ListFooterComponent={<View style={styles.listHeaderFooter} />}
+            ListHeaderComponent={<View style={styles.listHeaderFooter} />}
+            renderItem={item => <ItemCart product={item.item} />}
+          />
+
+          <View style={styles.subtotal}>
+            <Text style={styles.subtotalTitle}>Subtotal</Text>
+            <Text style={styles.subtotalValue}>R$ {this.totalPrice()}</Text>
+          </View>
+        </View>
+      </Fragment>
+    );
+  }
+}
 
 const mapStateToProps = state => ({
-  products: state.cart.data,
+  cart: state.cart,
 });
 
 export default connect(mapStateToProps)(Cart);

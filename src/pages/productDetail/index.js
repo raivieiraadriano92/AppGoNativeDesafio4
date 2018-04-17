@@ -72,7 +72,6 @@ const mapStateToProps = state => ({
   product: state.products.productSelected,
 });
 
-
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
