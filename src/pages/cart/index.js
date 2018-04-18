@@ -7,6 +7,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { Creators as CartActions } from 'store/ducks/cart';
 
 import Header from 'components/Header';
 
@@ -33,7 +36,8 @@ class Cart extends Component {
 
     return this.props.cart.data
       .map(product => product.price * product.amount)
-      .reduce((total, next) => total + next);
+      .reduce((total, next) => total + next)
+      .toFixed(2);
   }
 
   render() {
@@ -46,7 +50,12 @@ class Cart extends Component {
             keyExtractor={item => String(item.id)}
             ListFooterComponent={<View style={styles.listHeaderFooter} />}
             ListHeaderComponent={<View style={styles.listHeaderFooter} />}
-            renderItem={item => <ItemCart product={item.item} />}
+            renderItem={({ item }) => (
+              <ItemCart
+                product={item}
+                key={String(item.id)}
+              />
+            )}
           />
 
           <View style={styles.subtotal}>
@@ -63,4 +72,7 @@ const mapStateToProps = state => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
